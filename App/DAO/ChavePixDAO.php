@@ -25,7 +25,7 @@ class ChavePixDAO extends DAO
     }
 
     
-    public function insert(ChavePixModel $m) : bool
+    public function insert(ChavePixModel $m) : ChavePixModel
     {
         $sql = "INSERT INTO chave_pix (chave, tipo, id_conta) VALUES (?, ?, ?) ";
 
@@ -33,9 +33,11 @@ class ChavePixDAO extends DAO
         $stmt->bindValue(1, $m->chave);
         $stmt->bindValue(2, $m->tipo);
         $stmt->bindValue(3, $m->id_conta);
-        
 
-        return $stmt->execute();
+        $m->id = $this->conexao->lastInsertId();
+
+        return $m;
+       
     }
 
     public function update(ChavePixModel $m)
