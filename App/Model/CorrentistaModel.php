@@ -14,9 +14,9 @@ class CorrentistaModel extends Model
     public function save()
     {
         if($this->id == null)
-            (new CorrentistaDAO())->insert($this);
+            return (new CorrentistaDAO())->insert($this);
         else
-            (new CorrentistaDAO())->update($this);
+            return (new CorrentistaDAO())->update($this);
     }
 
     

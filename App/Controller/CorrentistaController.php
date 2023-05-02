@@ -24,10 +24,11 @@ class CorrentistaController extends Controller
             $model->data_nasc = $json_obj->Data_Nasc;
             $model->senha = $json_obj->Senha;
 
-            $model->save();
+            parent::getResponseAsJSON($model->save());
               
         } catch (Exception $e) {
 
+            parent::LogError($e);
             parent::getExceptionAsJSON($e);
         }
     }
@@ -44,6 +45,7 @@ class CorrentistaController extends Controller
               
         } catch (Exception $e) {
 
+            parent::LogError($e);
             parent::getExceptionAsJSON($e);
         }
     }
@@ -61,6 +63,27 @@ class CorrentistaController extends Controller
            
         } catch (Exception $e) {
 
+            parent::LogError($e);
+            parent::getExceptionAsJSON($e);
+        }
+    }
+
+    public static function buscar() : void
+    {
+        try
+        {
+            $model = new CorrentistaModel();
+            
+            $q = json_decode(file_get_contents('php://input'));
+            
+    
+            $model->getAllRows($q);
+
+            parent::getResponseAsJSON($model->rows);
+              
+        } catch (Exception $e) {
+
+            parent::LogError($e);
             parent::getExceptionAsJSON($e);
         }
     }

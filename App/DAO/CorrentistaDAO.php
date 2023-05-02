@@ -34,7 +34,8 @@ class CorrentistaDAO extends DAO
         $stmt->bindValue(2, $m->cpf);
         $stmt->bindValue(3, $m->data_nasc);
         $stmt->bindValue(4, $m->senha);
-        
+        $stmt->execute();
+
         $m->id = $this->conexao->lastInsertId();
 
         return $m;
@@ -62,5 +63,17 @@ class CorrentistaDAO extends DAO
         $stmt = $this->conexao->prepare($sql);
         $stmt->bindValue(1, $id);
         return $stmt->execute();
+    }
+
+    public function search(string $query) : array
+    {
+        $str_query = ['filtro' => '%' . $query . '%'];
+
+        $sql = "SELECT * FROM correntista WHERE nome LIKE :filtro ";
+
+        $stmt = $this->conexao->prepare($sql);
+        $stmt->execute($str_query);
+
+        return $stmt->fetchAll(DAO::FETCH_CLASS, "Api\Model\CorrentistaModel");
     }
 }
