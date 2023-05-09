@@ -9,6 +9,10 @@ switch($url)
     case '/correntista/save':
         CorrentistaController::salvar();
     break;
+    
+    case '/correntista/listar':
+        CorrentistaController::listar();
+        break;
 
     case '/correntista/entrar':
         

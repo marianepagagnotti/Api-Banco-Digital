@@ -28,7 +28,7 @@ class CorrentistaController extends Controller
               
         } catch (Exception $e) {
 
-            parent::LogError($e);
+            parent::LogError($e->getPrevious());
             parent::getExceptionAsJSON($e);
         }
     }

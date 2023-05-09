@@ -3,6 +3,9 @@
 namespace APIBANCODIGITAL\DAO;
 
 use APIBANCODIGITAL\Model\CorrentistaModel;
+use APIBANCODIGITAL\Controller\Controller;
+use Exception;
+use PDOException;
 
 
 class CorrentistaDAO extends DAO
@@ -74,6 +77,20 @@ class CorrentistaDAO extends DAO
         $stmt = $this->conexao->prepare($sql);
         $stmt->execute($str_query);
 
-        return $stmt->fetchAll(DAO::FETCH_CLASS, "Api\Model\CorrentistaModel");
+        return $stmt->fetchAll(DAO::FETCH_CLASS, "APIBANCODIGITAL\Model\CorrentistaModel");
+    }
+
+    public function selectByCPFandSenha(string $cpf, string $senha)
+    {
+        $sql = "SELECT * FROM Correntista WHERE cpf = ? AND senha = ?";
+
+        $stmt = $this->conexao->prepare($sql);
+
+        $stmt->bindValue(1, $cpf);
+        $stmt->bindValue(2, $senha);
+
+        $stmt->execute();
+
+        return $stmt->fetchObject("APIBANCODIGITAL\Model\CorrentistaModel");
     }
 }
