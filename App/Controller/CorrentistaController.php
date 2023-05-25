@@ -18,7 +18,6 @@ class CorrentistaController extends Controller
             $json_obj = json_decode(file_get_contents('php://input'));
 
             $model = new CorrentistaModel();
-            $model->id = $json_obj->Id;
             $model->nome = $json_obj->Nome;
             $model->cpf = $json_obj->Cpf;
             $model->data_nasc = $json_obj->Data_Nasc;
