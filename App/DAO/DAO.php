@@ -1,6 +1,6 @@
 <?php
 
-namespace APIBANCODIGITAL\DAO;
+namespace App\DAO;
 
 use Exception, PDO, PDOException;
 

@@ -1,18 +1,22 @@
 <?php
 
-use APIBANCODIGITAL\Controller\CorrentistaController;
+use App\Controller\CorrentistaController;
 
 $url = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
 
 switch($url)
 {
+    case '/teste':
+        CorrentistaController::teste();
+    break;
+
     case '/correntista/save':
         CorrentistaController::salvar();
     break;
     
     case '/correntista/listar':
         CorrentistaController::listar();
-        break;
+    break;
 
     case '/correntista/entrar':
         

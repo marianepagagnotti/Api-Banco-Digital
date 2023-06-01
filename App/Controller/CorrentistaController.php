@@ -1,8 +1,8 @@
 <?php
 
-namespace APIBANCODIGITAL\Controller;
+namespace App\Controller;
 
-use APIBANCODIGITAL\Model\CorrentistaModel;
+use App\Model\CorrentistaModel;
 use Exception;
 
 
@@ -18,20 +18,21 @@ class CorrentistaController extends Controller
             $json_obj = json_decode(file_get_contents('php://input'));
 
             $model = new CorrentistaModel();
-            $model->nome = $json_obj->Nome;
-            $model->cpf = $json_obj->Cpf;
-            $model->data_nasc = $json_obj->Data_Nasc;
-            $model->senha = $json_obj->Senha;
-
-            $model->save();
+            $model->nome = $json_obj->nome;
+            $model->cpf = $json_obj->cpf;
+            $model->data_nasc = $json_obj->data_nasc;
+            $model->senha = $json_obj->senha;
 
             parent::getResponseAsJSON($model->save());
               
         } catch (Exception $e) {
-
-            parent::LogError($e->getPrevious());
+            echo "DEU ERRO: " . $e->getMessage();
             parent::getExceptionAsJSON($e);
         }
+    }
+
+    public static function teste() {
+        echo "testeeee";
     }
 
     public static function listar() : void
@@ -63,8 +64,7 @@ class CorrentistaController extends Controller
 
            
         } catch (Exception $e) {
-
-            parent::LogError($e);
+            echo "DEU ERRO: " . $e->getMessage();
             parent::getExceptionAsJSON($e);
         }
     }

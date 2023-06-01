@@ -1,8 +1,8 @@
 <?php
 
-namespace APIBANCODIGITAL\Model;
+namespace App\Model;
 
-use APIBANCODIGITAL\DAO\CorrentistaDAO;
+use App\DAO\CorrentistaDAO;
 
 
 class CorrentistaModel extends Model

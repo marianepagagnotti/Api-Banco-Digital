@@ -1,9 +1,9 @@
 <?php
 
-namespace APIBANCODIGITAL\DAO;
+namespace App\DAO;
 
-use APIBANCODIGITAL\Model\CorrentistaModel;
-use APIBANCODIGITAL\Controller\Controller;
+use App\Model\CorrentistaModel;
+use App\Controller\Controller;
 use Exception;
 use PDOException;
 
