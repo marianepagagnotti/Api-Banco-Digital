@@ -1,33 +1,37 @@
 <?php
 
-namespace APIBANCODIGITAL\Model;
+namespace App\Model;
 
-use APIBANCODIGITAL\DAO\ContaDAO;
+use App\DAO\ContaDAO;
 
 
 class ContaModel extends Model
 {
-   
-    public $id, $numero, $tipo, $senha, $id_correntista;
-    
-   
+    public $id, $id_correntista, $saldo, $limite, $tipo, $data_abertura;
+
     public function save()
     {
-        if($this->id == null)
-            (new ContaDAO())->insert($this);
-        else
-            (new ContaDAO())->update($this);
+        $dao = new ContaDAO(); 
+
+        
+        if(empty($this->id))
+        {
+            $dao->insert($this);
+
+        } else {
+
+            //$dao->update($this); 
+        }        
     }
 
-    
-    public function getAllRows()
-    {
-        $this->rows = (new ContaDAO())->select();
+
+    public function getAllRows(int $id_cidadao)
+    {      
+        $dao = new ContaDAO();
+
+        $this->rows = $dao->select($id_cidadao);
     }
 
-    
-    public function delete()
-    {
-        (new ContaDAO())->delete($this->id);
-    }
+
+   
 }

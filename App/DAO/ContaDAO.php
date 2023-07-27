@@ -1,66 +1,72 @@
 <?php
 
-namespace APIBANCODIGITAL\DAO;
+namespace App\DAO;
 
-use APIBANCODIGITAL\Model\ContaModel;
+use App\Model\ContaModel;
+use Exception;
+use PDOException;
 
 
 class ContaDAO extends DAO
 {
-   
+     /**
+     * Método construtor, sempre chamado na classe quando a classe é instanciada.
+     * Exemplo de instanciar classe (criar objeto da classe):
+     * $dao = new PessoaDAO();
+     */
     public function __construct()
     {
+        
         parent::__construct();       
     }
 
-    
-    public function select()
+
+    /**
+     * Método que recebe um model e extrai os dados do model para realizar o insert
+     * na tabela correspondente ao model. Note o tipo do parâmetro declarado.
+     */
+    public function insert(ContaModel $model) : ?ContaModel
     {
-        $sql = "SELECT * FROM conta";
+        
+        $sql = "INSERT INTO conta 
+                            (id_correntista, saldo, limite, tipo) 
+                VALUES 
+                            (?, ?, ?, ?) ";
 
         $stmt = $this->conexao->prepare($sql);
+
+
+        $stmt->bindValue(1, $model->id_correntista);
+        $stmt->bindValue(2, $model->saldo);
+        $stmt->bindValue(3, $model->limite);
+        $stmt->bindValue(4, $model->tipo);
+
         $stmt->execute();
 
-        return $stmt->fetchAll(DAO::FETCH_CLASS);
+        $model->id = $this->conexao->lastInsertId();
+
+        return $model;
     }
 
-    
-    public function insert(ContaModel $m) : ContaModel
+
+
+
+
+    /**
+     * Método que retorna todas os registros da tabela pessoa no banco de dados.
+     */
+    public function select(int $id_cidadao)
     {
-        $sql = "INSERT INTO conta (numero, tipo, senha, id_correntista) VALUES (?, ?, ?, ?) ";
+        $sql = "SELECT * FROM Reclamacao WHERE id_cidadao = ? ";
 
         $stmt = $this->conexao->prepare($sql);
-        $stmt->bindValue(1, $m->numero);
-        $stmt->bindValue(2, $m->tipo);
-        $stmt->bindValue(3, $m->senha);
-        $stmt->bindValue(4, $m->id_correntista);
-        
-        $m->id = $this->conexao->lastInsertId();
+        $stmt->bindValue(1, $id_cidadao);
+        $stmt->execute();
 
-        return $m;
-
+      
+        return $stmt->fetchAll(DAO::FETCH_CLASS);        
     }
 
-    public function update(ContaModel $m)
-    {
-        $sql = "UPDATE conta SET numero= ?, tipo= ?, senha= ? id_correntista= ? WHERE id=? ";
 
-        $stmt = $this->conexao->prepare($sql);
-        $stmt->bindValue(1, $m->numero);
-        $stmt->bindValue(2, $m->tipo);
-        $stmt->bindValue(3, $m->senha);
-        $stmt->bindValue(4, $m->id_correntista);
-        $stmt->bindValue(5, $m->id);
-
-        return $stmt->execute();
-    }
-
-    public function delete(int $id) : bool
-    {
-        $sql = "DELETE FROM conta WHERE id = ? ";
-
-        $stmt = $this->conexao->prepare($sql);
-        $stmt->bindValue(1, $id);
-        return $stmt->execute();
-    }
+   
 }

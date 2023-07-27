@@ -1,6 +1,7 @@
 <?php
 
 use App\Controller\CorrentistaController;
+use App\Controller\ContaController;
 
 $url = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
 
@@ -18,8 +19,8 @@ switch($url)
         CorrentistaController::listar();
     break;
 
-    case '/correntista/entrar':
-        
+    case '/conta/abrir':
+        ContaController::abrir();
     break;
 
     case '/conta/pix/enviar':

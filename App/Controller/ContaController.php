@@ -1,66 +1,47 @@
 <?php
 
-namespace APIBANCODIGITAL\Controller;
+namespace App\Controller;
 
-use APIBANCODIGITAL\Model\ContaModel;
+use App\Model\ContaModel;
 use Exception;
 
 
 class ContaController extends Controller
 {
-    
-    public static function salvar() : void
+    public static function abrir()
     {
-        try
-        {
-            $json_obj = json_decode(file_get_contents('php://input'));
 
-            $model = new ContaModel();
-            $model->id = $json_obj->Id;
-            $model->numero = $json_obj->Numero;
-            $model->tipo = $json_obj->Tipo;
-            $model->senha = $json_obj->Senha;
-            $model->id_correntista = $json_obj->Id_correntista;
-           
-
-            $model->save();
-              
-        } catch (Exception $e) {
-
-            parent::getExceptionAsJSON($e);
-        }
     }
 
-    public static function listar() : void
+    public static function fechar()
     {
-        try
-        {
-            $model = new ContaModel();
-            
-            $model->getAllRows();
-
-            parent::getResponseAsJSON($model->rows);
-              
-        } catch (Exception $e) {
-
-            parent::getExceptionAsJSON($e);
-        }
+        
     }
 
-    public static function deletar() : void
+    public static function extrato()
     {
-        try 
-        {
-            $model = new ContaModel();
-            
-            $model->id = parent::getIntFromUrl(isset($_GET['id']) ? $_GET['id'] : null);
+        
+    }
 
-            $model->delete();
 
-           
-        } catch (Exception $e) {
 
-            parent::getExceptionAsJSON($e);
-        }
+
+
+    /**
+     * Os métodos index serão usados para devolver uma View.
+     * Para saber mais sobre métodos estáticos, leia: https://www.php.net/manual/pt_BR/language.oop5.static.php
+     */
+    public static function index()
+    {      
+        //$model = new ContaModel(); // Instância da Model
+        //$model->getAllRows(); // Obtendo todos os registros, abastecendo a propriedade $rows da model.
+
+        /**
+         * O método getResponseAsJSON devolve uma string JSON formatada e pronta para ser
+         * consumida pela chamada.
+         * Recebe como parâmetro o element PHP a ser convertido para JSON, neste caso um
+         * array de objetos
+         */
+        //parent::getResponseAsJSON($model->rows);
     }
 }

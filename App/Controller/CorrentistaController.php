@@ -6,13 +6,31 @@ use App\Model\CorrentistaModel;
 use Exception;
 
 
-class CorrentistaController extends Controller
+    class CorrentistaController extends Controller
 {
-    /**
-     * 
-     */
-    public static function salvar() : void
+    public static function login()
     {
+        try
+        {
+           
+            $data = json_decode(file_get_contents('php://input'));
+
+            
+            $model = new CorrentistaModel();
+
+           
+            parent::getResponseAsJSON($model->getByCpfAndSenha($data->Cpf, $data->Senha)); 
+
+        } catch(Exception $e) {
+            
+            parent::LogError($e);
+            parent::getExceptionAsJSON($e);
+        }  
+    }
+
+    
+    public static function salvar() : void
+        {
         try
         {
             $json_obj = json_decode(file_get_contents('php://input'));
@@ -29,63 +47,5 @@ class CorrentistaController extends Controller
             echo "DEU ERRO: " . $e->getMessage();
             parent::getExceptionAsJSON($e);
         }
-    }
-
-    public static function teste() {
-        echo "testeeee";
-    }
-
-    public static function listar() : void
-    {
-        try
-        {
-            $model = new CorrentistaModel();
-            
-            $model->getAllRows();
-
-            parent::getResponseAsJSON($model->rows);
-              
-        } catch (Exception $e) {
-
-            parent::LogError($e);
-            parent::getExceptionAsJSON($e);
-        }
-    }
-
-    public static function deletar() : void
-    {
-        try 
-        {
-            $model = new CorrentistaModel();
-            
-            $model->id = parent::getIntFromUrl(isset($_GET['id']) ? $_GET['id'] : null);
-
-            $model->delete();
-
-           
-        } catch (Exception $e) {
-            echo "DEU ERRO: " . $e->getMessage();
-            parent::getExceptionAsJSON($e);
-        }
-    }
-
-    public static function buscar() : void
-    {
-        try
-        {
-            $model = new CorrentistaModel();
-            
-            $q = json_decode(file_get_contents('php://input'));
-            
-    
-            $model->getAllRows($q);
-
-            parent::getResponseAsJSON($model->rows);
-              
-        } catch (Exception $e) {
-
-            parent::LogError($e);
-            parent::getExceptionAsJSON($e);
-        }
-    }
+}
 }
