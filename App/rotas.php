@@ -8,7 +8,7 @@ $url = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
 switch($url)
 {
     case '/teste':
-        CorrentistaController::teste();
+        //CorrentistaController::teste();
     break;
 
     case '/correntista/save':
@@ -16,7 +16,7 @@ switch($url)
     break;
     
     case '/correntista/listar':
-        CorrentistaController::listar();
+        //CorrentistaController::listar();
     break;
 
     case '/conta/abrir':
