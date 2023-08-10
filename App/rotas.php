@@ -15,8 +15,8 @@ switch($url)
         CorrentistaController::salvar();
     break;
     
-    case '/correntista/listar':
-        //CorrentistaController::listar();
+    case '/correntista/entrar':
+        CorrentistaController::login();
     break;
 
     case '/conta/abrir':

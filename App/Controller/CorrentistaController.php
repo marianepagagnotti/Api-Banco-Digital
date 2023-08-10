@@ -19,7 +19,7 @@ use Exception;
             $model = new CorrentistaModel();
 
            
-            parent::getResponseAsJSON($model->getByCpfAndSenha($data->Cpf, $data->Senha)); 
+            parent::getResponseAsJSON($model->getByCpfAndSenha($data->cpf, $data->senha)); 
 
         } catch(Exception $e) {
             
