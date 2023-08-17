@@ -17,6 +17,8 @@ use Exception;
 
             
             $model = new CorrentistaModel();
+            $model->cpf = $data->cpf;
+            $model->senha = $data->senha;
 
            
             parent::getResponseAsJSON($model->getByCpfAndSenha($data->cpf, $data->senha)); 
