@@ -1,8 +1,8 @@
 <?php
 
-namespace APIBANCODIGITAL\DAO;
+namespace App\DAO;
 
-use APIBANCODIGITAL\Model\ChavePixModel;
+use App\Model\ChavePixModel;
 
 
 class ChavePixDAO extends DAO

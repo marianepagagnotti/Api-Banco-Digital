@@ -1,5 +1,6 @@
 <?php
 
+use App\Controller\ChavePixController;
 use App\Controller\CorrentistaController;
 use App\Controller\ContaController;
 
@@ -34,6 +35,10 @@ switch($url)
     case '/conta/extrato':
         
     break;
+    
+    case '/conta/pix/adicionar':
+        ChavePixController::salvar();
+     break;
 
     default:
         http_response_code(403);

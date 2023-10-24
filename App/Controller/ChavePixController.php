@@ -1,8 +1,8 @@
 <?php
 
-namespace APIBANCODIGITAL\Controller;
+namespace App\Controller;
 
-use APIBANCODIGITAL\Model\ChavePixModel;
+use App\Model\ChavePixModel;
 use Exception;
 
 
